@@ -44,7 +44,7 @@ prediction = predict(model, newdata=tcv, type="class")
 tl$label = factor(tl$label)
 tcv$label = factor(tcv$label)
 
-# build rzndom forest ensemble
+# build random forest ensemble
 set.seed(666)
 model = randomForest(eqn, data=tl, 
                      nodesize=10, 
