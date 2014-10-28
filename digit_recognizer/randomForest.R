@@ -48,7 +48,7 @@ tcv$label = factor(tcv$label)
 set.seed(666)
 model = randomForest(eqn, data=tl, 
                      nodesize=10, 
-                     ntree=50, 
+                     ntree=100, 
                      do.trace=TRUE, 
                      importance=TRUE)
 prediction = predict(model, newdata=tcv)
