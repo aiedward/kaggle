@@ -46,8 +46,6 @@ xTrainFull <- xFullTrain[,-zero_var_train]
 TestFull   <- test[,-zero_var_train]
 
 
-
-
 #Parallize
 nCores <- 2
 c1 <- makeCluster(nCores, type = "SOCK")
@@ -57,5 +55,30 @@ clusterExport(c1, c("%do%","foreach"))
 ## load libraries on workers
 clusterEvalQ(c1, library(caret)) 
 
-stopCluster(c1)
+tic=proc.time()[3]
 
+rdaGrid_Poly = data.frame(.C=1, .degree=3, .scale=1e-07)
+
+ctrl_Poly <- trainControl(method = "repeatedcv",
+                          repeats = 3,
+                          classProbs = TRUE
+)
+
+model <- train(xVal, yValLabels, 
+               method='svmPoly',
+               #tuneGrid = rdaGrid_Poly,
+               trControl = ctrl_Poly,
+               tuneLength = 2,
+               #metric = "ROC"
+)
+
+
+ctrl_Radial <- trainControl(method = "cv",
+                            number = 5,
+                            classProbs = TRUE
+)
+
+# Find a good Sigma 
+
+# imp !! at end stop the  cluster 
+stopCluster(c1)
