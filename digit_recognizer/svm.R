@@ -79,6 +79,30 @@ ctrl_Radial <- trainControl(method = "cv",
 )
 
 # Find a good Sigma 
+model <- train(xVal, yValLabels, 
+               method='svmRadial',
+               #trControl = ctrl_Radial,
+               trControl = ctrl_Poly,
+               tuneLength = 5
+              )
+
+Tuning parameter 'sigma' was held constant at a value of 1.767154e-07
+Accuracy was used to select the optimal model using  the largest value.
+The final values used for the model were sigma = 1.767154e-07 and C = 4.
+
+model <- train(xVal, yValLabels, 
+               method='svmRadial',
+               trControl = ctrl_Radial,
+               tuneGrid = expand.grid(.sigma=c(2.88e-07),.C=c(1,2,4,8,16,32))
+              )
+
+
+Tuning parameter 'sigma' was held constant at a value of 2.88e-07
+Accuracy was used to select the optimal model using  the largest value.
+The final values used for the model were sigma = 2.88e-07 and C = 16. 
+
+
+
 
 # imp !! at end stop the  cluster 
 stopCluster(c1)
