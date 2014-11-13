@@ -102,7 +102,32 @@ Accuracy was used to select the optimal model using  the largest value.
 The final values used for the model were sigma = 2.88e-07 and C = 16. 
 
 
+###
+###   FIRST FULL TRAINING
+###
 
+tic=proc.time()[3]
+# Full training example
+model <- train(xTrainFull, yFullTrainingLabels, 
+               method='svmRadial',
+               tuneGrid = expand.grid(.sigma=c(2.94e-07),.C=c(2))
+              )
+
+toc=proc.time()[3] - tic
+toc
+
+print(model)
+plot(model)
+
+
+predY <- predict(model, TestFull)
+predY
+
+predictions <- levels(yTrainingLabels)[predY]
+predictions
+
+write(predictions, file="./svm_benchmark.csv", 
+      ncolumns=1) 
 
 # imp !! at end stop the  cluster 
 stopCluster(c1)
