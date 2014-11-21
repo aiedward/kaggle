@@ -1,3 +1,5 @@
+
+
 library(caTools)
 library(ggplot2)
 library(caret)
@@ -131,3 +133,19 @@ write(predictions, file="./svm_benchmark.csv",
 
 # imp !! at end stop the  cluster 
 stopCluster(c1)
+
+
+
+table(predY, yValLabels)
+
+confusionMatrix(predY,yValLabels)
+
+
+
+
+
+predY <- predict(model, xVal)
+predY
+table(predY, yValLabels)
+
+confusionMatrix(predY,yValLabels)
